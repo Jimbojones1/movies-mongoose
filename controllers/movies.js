@@ -19,7 +19,7 @@ async function create(req, res){
 	if (req.body.cast) req.body.cast = req.body.cast.split(/\s*,\s*/);
 
 	try {
-		const createdMovieDoc = await MovieMode.create(req.body)
+		const createdMovieDoc = await MovieModel.create(req.body)
 		// for now redirect to new page
 		res.redirect('/movies/new')
 	} catch(err){
