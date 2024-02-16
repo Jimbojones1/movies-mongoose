@@ -4,11 +4,29 @@ const MovieModel = require('../models/movie')
 
 module.exports = {
 	new: newMovie,
-	create: create
+	create: create,
+	index
 	// or 
 	// create
 }
 
+async function index(req, res){
+	
+	// then we want to send a ejs page with all the movies to the browser
+	try {
+		// We want our model to go to the database and get all the movies
+		// .find({}) is mongoose model query method
+		const movieDocumentsFromTheDB = await MovieModel.find({})
+		console.log(movieDocumentsFromTheDB)
+		// then we want to send a ejs page with all the movies to the browser
+		// movies/index is looking in the views folder for the ejs page
+		res.render('movies/index', {movieDocs: movieDocumentsFromTheDB})
+		// movieDocs is now a variables inside of views/movies/index.ejs 
+	} catch(err){
+		console.log(err)
+		res.redirect('/')
+	}
+}
 
 async function create(req, res){
 	console.log(req.body, " <- is the contents of our form!")
@@ -19,7 +37,12 @@ async function create(req, res){
 	if (req.body.cast) req.body.cast = req.body.cast.split(/\s*,\s*/);
 
 	try {
-		const createdMovieDoc = await MovieModel.create(req.body)
+		// await says, wait for the model to finish going to mongodb
+		// atlas and coming back before you run the code after it!
+
+		// ONLY USE AWAIT ON YOUR MODEL QUERY! for right now
+		const createdMovieDoc = await MovieModel.create(req.body);
+		console.log(createdMovieDoc)
 		// for now redirect to new page
 		res.redirect('/movies/new')
 	} catch(err){
@@ -34,3 +57,4 @@ function newMovie(req, res){
 	// views folder for the ejs page
 	res.render('movies/new')
 }
+
