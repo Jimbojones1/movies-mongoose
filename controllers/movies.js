@@ -29,7 +29,7 @@ async function show(req, res) {
 
 		// express is changing the ejs into html and sending it to the browser (client side/frontend)
 	  res.render("movies/show", {
-		movie: movieFromTheDatabase
+		movie: movieFromTheDatabase // the key movie, becomes a variable name in the show.ejs
 	  });
 	} catch (err) {
 	  res.send(err);
