@@ -12,7 +12,7 @@ router.get('/', movieCtrl.index)
 router.get('/new', movieCtrl.new)
 
 // GET /movies/:id (show functionality) MUST be below new route
-router.get('/:id', moviesCtrl.show);
+router.get('/:id', movieCtrl.show);
 //Post request to /movies
 router.post('/', movieCtrl.create)
 

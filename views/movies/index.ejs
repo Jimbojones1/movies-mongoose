@@ -5,48 +5,32 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
-	<h2>Movie List</h2>
-	<table>
+	<main>
+	<table id="list">
 		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Release Year</th>
-				<th>Rating</th>
-				<th>Cast</th>
-				<th>Now Showing</th>
-			</tr>
+		  <tr>
+			<th>Title</th>
+			<th>Release<br>Year</th>
+			<th></th>
+		  </tr>
 		</thead>
 		<tbody>
-			<!-- Write the line of EJS to iterate over movies using forEach -->
-			<% movieDocs.forEach(m => { %>
-			 
-		
+		  <% movieDocs.forEach(function(m) { %>
 			<tr>
-				<td>
-					<%= m.title %>
-				</td>
-				<td>
-					<%= m.releaseYear %>
-				</td>
-				<td>
-					<%= m.mpaaRating %>
-				</td>
-				<td>
-					<%= m.cast.join(', ') %></td>
-        <!-- finish the ternary expression to display
-                      ' Yes' or 'Nope' -->
-				<td>
-					<%= m.nowShowing ? 'Yes' : 'Nope' %>
-				</td>
+			  <td><%= m.title %></td>
+			  <td><%= m.releaseYear %></td>
+			  <td><a href="/movies/<%= m._id %>">DETAILS</a></td>
 			</tr>
-			<!-- Close the forEach using EJS here -->
-			<% }) %>
-		</tbody>
-	</table>
-
+			<% }); %>
+		  </tbody>
+		
+		</table>
+		
+	</main>
 </body>
 
 </html>

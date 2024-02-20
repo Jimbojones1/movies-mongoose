@@ -16,9 +16,10 @@ async function show(req, res) {
   
 	try {
   
-
-	  const movieFromTheDatabase = await MovieModel
-									 .findById(req.params.id)
+		// req.params.id value is coming from the browsers request
+		// the name `.id` is defined in the routes/movies show route
+		// router.get('/:id', movieCtrl.show);
+	  const movieFromTheDatabase = await MovieModel.findById(req.params.id)
 									
   
 									
@@ -26,7 +27,7 @@ async function show(req, res) {
 	  console.log(movieFromTheDatabase);
   
 
-  
+		// express is changing the ejs into html and sending it to the browser (client side/frontend)
 	  res.render("movies/show", {
 		movie: movieFromTheDatabase
 	  });
