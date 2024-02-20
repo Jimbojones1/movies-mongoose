@@ -11,6 +11,8 @@ router.get('/', movieCtrl.index)
 //get requests to  /movies/new
 router.get('/new', movieCtrl.new)
 
+// GET /movies/:id (show functionality) MUST be below new route
+router.get('/:id', moviesCtrl.show);
 //Post request to /movies
 router.post('/', movieCtrl.create)
 

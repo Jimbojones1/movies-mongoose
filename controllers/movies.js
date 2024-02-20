@@ -5,10 +5,35 @@ const MovieModel = require('../models/movie')
 module.exports = {
 	new: newMovie,
 	create: create,
-	index
+	index,
+	show
 	// or 
 	// create
 }
+
+async function show(req, res) {
+
+  
+	try {
+  
+
+	  const movieFromTheDatabase = await MovieModel
+									 .findById(req.params.id)
+									
+  
+									
+  
+	  console.log(movieFromTheDatabase);
+  
+
+  
+	  res.render("movies/show", {
+		movie: movieFromTheDatabase
+	  });
+	} catch (err) {
+	  res.send(err);
+	}
+  }
 
 async function index(req, res){
 	
