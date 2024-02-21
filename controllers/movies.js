@@ -1,4 +1,4 @@
-// import our model so we can talk to the database and perfomr
+// import our model so we can talk to the database and performs
 // our CRUD operations
 const MovieModel = require('../models/movie')
 

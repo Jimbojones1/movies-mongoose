@@ -8,7 +8,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const movieRouter = require('./routes/movies');
 const reviewsRouter = require('./routes/reviews');
-
+const performersRouter = require('./routes/performers')
 const app = express();
 
 // require our database.js file to establish the 
@@ -31,6 +31,7 @@ app.use('/movies', movieRouter);
 // related resources are mounted at /
 // because there is not consitent naming convention
 app.use('/', reviewsRouter)
+app.use('/', performersRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
