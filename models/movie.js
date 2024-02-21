@@ -35,7 +35,16 @@ const movieSchema = new Schema({
   releaseYear: Number,
   mpaaRating: String,
   nowShowing: Boolean,
+  // Many to Many Relationship
+  // Move has many performers, Performers has many Movies
+  // using referencing!
+  cast: [{
+    type: Schema.Types.ObjectId, // this is from mongoose
+    ref: 'Performer' // Performer is referencing the model name that 
+    // you are creating the relationship with, mongoose.model('Performer', performerSchema);
+  }],
   // One movie has many reviews, A review belongs to a movie 
+  // Using embedding on the one side of the relationship
   reviews: [reviewSchema]
 }, {
   timestamps: true
