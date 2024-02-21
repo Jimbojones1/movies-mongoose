@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+	<nav>
+		<img src="/images/camera.svg">
+		<a href="/performers/new">ADD PERFORMER</a>
+		<a href="/movies/new">ADD MOVIE</a>
+		<a href="/movies">ALL MOVIES</a>
+	</nav>
+	<main>
+		<p>Please first ensure that the Performer is not in the dropdown
+			<select>
+				<% performers.forEach(function(p) { %>
+					<option>
+						<%= p.name %>
+					</option>
+					<% }) %>
+			</select>
+		</p>
+		<form id="add-performer-form" action="/performers" method="POST">
+			<label>Name:</label>
+			<input type="text" name="name">
+			<label>Born:</label>
+			<input type="date" name="born">
+			<input type="submit" value="Add Performer">
+		</form>
+	</main>
+
+</body>
+
+</html>

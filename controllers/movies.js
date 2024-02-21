@@ -54,28 +54,33 @@ async function index(req, res){
 	}
 }
 
-async function create(req, res){
-	console.log(req.body, " <- is the contents of our form!")
-	req.body.nowShowing = !!req.body.nowShowing // !! forces the value to a boolean
-	  // remove any whitespace at start and end of cast
-	req.body.cast = req.body.cast.trim();
-	  // split cast into an array if it's not an empty string - using a regular expression as a separator
-	if (req.body.cast) req.body.cast = req.body.cast.split(/\s*,\s*/);
-
-	try {
-		// await says, wait for the model to finish going to mongodb
-		// atlas and coming back before you run the code after it!
-
-		// ONLY USE AWAIT ON YOUR MODEL QUERY! for right now
-		const createdMovieDoc = await MovieModel.create(req.body);
-		console.log(createdMovieDoc)
-		// for now redirect to new page
-		res.redirect('/movies/new')
-	} catch(err){
-		console.log(err)
-		res.redirect('/movies/new')
+async function create(req, res) {
+	// convert nowShowing's checkbox of nothing or "on" to boolean
+	req.body.nowShowing = !!req.body.nowShowing;
+	// remove any whitespace at start and end of cast
+  
+  
+	// Remove empty properties so that defaults will be applied
+	for (let key in req.body) {
+	  if (req.body[key] === "") delete req.body[key];
 	}
-}
+	try {
+	  const movieFromTheDatabase = await MovieModel.create(req.body); // the await is waiting for the MovieModel to go to MongoDB ATLAS (our db) a
+	  //and put the contents form in the db, and come back to the express server
+  
+	  // if you want to see what you put in the database on your server
+	  console.log(movieFromTheDatabase);
+  
+	  // Always redirect after CUDing data
+	  // We'll refactor to redirect to the movies index after we implement it
+	  res.redirect(`/movies/${movieFromTheDatabase._id}`); // Update this line
+	} catch (err) {
+	  // Typically some sort of validation error
+	  console.log(err);
+	  res.render("movies/new", { errorMsg: err.message });
+	}
+  }
+  
 
 function newMovie(req, res){
 

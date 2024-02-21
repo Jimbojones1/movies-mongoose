@@ -34,7 +34,6 @@ const movieSchema = new Schema({
   title: String,
   releaseYear: Number,
   mpaaRating: String,
-  cast: [String],
   nowShowing: Boolean,
   // One movie has many reviews, A review belongs to a movie 
   reviews: [reviewSchema]
