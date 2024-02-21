@@ -33,10 +33,16 @@
 			<div>
 				<%= movie.nowShowing ? 'Yes' : 'Nope' %>
 			</div>
+			<div>Cast:</div>
+			<ul>
+				<% movie.cast.forEach(p => { %>
+				 <li><%= p.name %> <small><%= p.born.toLocaleDateString() %></small></li>
+				<% }) %>
+			</ul>
 		</section>
 
 		<br><br>
-		<form action="">
+		<form action="/movies/<%= movie._id %>/performers" method="POST">
 			<select name="performerId" id="add-per-to-cast">
 				<% performers.forEach(p => { %>
 					<option value="<%= p._id %>"><%= p.name %></option>

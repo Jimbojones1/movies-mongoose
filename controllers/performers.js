@@ -1,10 +1,32 @@
 const PerformerModel = require("../models/performer");
-
+const MovieModel = require('../models/movie')
 
 module.exports = {
   new: newPerformer,
-  create
+  create,
+  addToCast
 };
+
+async function addToCast(req, res){
+	
+	
+	try {
+		// Find the movie (req.params comes from the http request)
+		const movieDoc = await MovieModel.findById(req.params.movieId);
+		// add the performers id to the movieDoc.cast array
+		movieDoc.cast.push(req.body.performerId);
+		// we mutated the movieDoc, so we have to tell the database!
+		await movieDoc.save()
+		// redirect the client back to the movies show page!
+		res.redirect(`/movies/${req.params.movieId}`)
+
+
+	} catch(err){
+		console.log(err)
+		res.send(err)
+	}
+
+}
 
 async function create(req, res) {
 	// Need to "fix" date formatting to prevent day off by 1

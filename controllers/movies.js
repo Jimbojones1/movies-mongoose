@@ -20,7 +20,15 @@ async function show(req, res) {
 		// req.params.id value is coming from the browsers request
 		// the name `.id` is defined in the routes/movies show route
 		// router.get('/:id', movieCtrl.show);
-	  const movieFromTheDatabase = await MovieModel.findById(req.params.id)
+	  const movieFromTheDatabase = await MovieModel
+	  									.findById(req.params.id)
+										.populate('cast') // 'cast' comes from the model Key name that has the object id
+										.exec()				//  cast: [{ <--- movie Model
+														//     type: Schema.Types.ObjectId, // this is from mongoose
+														//     ref: 'Performer' // Performer is referencing the model name that 
+														//     // you are creating the relationship with, mongoose.model('Performer', performerSchema);
+														//   }],
+									
 									
   
 									
