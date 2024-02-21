@@ -35,6 +35,15 @@
 			</div>
 		</section>
 
+
+		<form action="">
+			<select name="performerId" id="add-per-to-cast">
+				<% performers.forEach(p => { %>
+					<option value="<%= p._id %>"><%= p.name %></option>
+				<% }) %>
+			</select>
+			<button type="submit">Add to Cast</button>
+		</form>
 		<br><br>
 		<h2>Reviews</h2>
 		<form id="add-review-form" method="POST" action="/movies/<%= movie._id %>/reviews">

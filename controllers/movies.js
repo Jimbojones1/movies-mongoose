@@ -1,6 +1,7 @@
 // import our model so we can talk to the database and performs
 // our CRUD operations
 const MovieModel = require('../models/movie')
+const PeformerModel = require('../models/performer');
 
 module.exports = {
 	new: newMovie,
@@ -25,11 +26,17 @@ async function show(req, res) {
 									
   
 	  console.log(movieFromTheDatabase);
+	  // For the dropdown for the addToCast
+	  // We need to search the database for all of the performers
+	  // whose id is NOT in the movieFromTheDatbase.cast array. 
+		const performersNotInTheMovie = await PerformerModel.find({_id: {$nin: movieFromTheDatabase.cast}})
+		// $nin -  Mongodb comparison query operators <- google to view these
   
 
 		// express is changing the ejs into html and sending it to the browser (client side/frontend)
 	  res.render("movies/show", {
-		movie: movieFromTheDatabase // the key movie, becomes a variable name in the show.ejs
+		movie: movieFromTheDatabase, // the key movie, becomes a variable name in the show.ejs
+		performers: performersNotInTheMovie
 	  });
 	} catch (err) {
 	  res.send(err);
