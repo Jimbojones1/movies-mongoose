@@ -29,7 +29,7 @@ async function show(req, res) {
 	  // For the dropdown for the addToCast
 	  // We need to search the database for all of the performers
 	  // whose id is NOT in the movieFromTheDatbase.cast array. 
-		const performersNotInTheMovie = await PerformerModel.find({_id: {$nin: movieFromTheDatabase.cast}})
+		const performersNotInTheMovie = await PeformerModel.find({_id: {$nin: movieFromTheDatabase.cast}})
 		// $nin -  Mongodb comparison query operators <- google to view these
   
 
@@ -39,6 +39,7 @@ async function show(req, res) {
 		performers: performersNotInTheMovie
 	  });
 	} catch (err) {
+	  console.log(err)
 	  res.send(err);
 	}
   }
