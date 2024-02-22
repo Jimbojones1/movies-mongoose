@@ -17,9 +17,31 @@ passport.use(
       //< - information we want is in the profile object
       // a user has logged in with OAuth...
 
+      // Search the database for users profile
+      // if we find a user with a profile.id that matches a users googleId
+   
+      let user = await UserModel.findOne({googleId: profile.id});
+      // if no user is found user would be undefined
+      if (user) return cb(null, user)
+       // that means the users exists, pass the users information to the next
+      // function in the middleware chain
+      // cb(err, dataYouWantToPassToNextMiddleware)
+
+      // if the user doesn't exist
+      // create the user
+      // then pass the users information to the next function in the middleware 
+      // chain
       // cb (callback) function signature, cb(error, SuccessfulDataYouWantToPassAlong) in our case successful data will the be users document from mongodb
       try {
-     
+        user = await UserModel.create({
+          name: profile.displayName,
+          googleId: profile.id,
+          email: profile.emails[0].value,
+          avatar: profile.photos[0].value
+        })
+
+        cb(null, user)  // pass the created user to next 
+        // place in middle ware chain
       } catch (err) {
         return cb(err);
       }
