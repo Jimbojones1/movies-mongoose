@@ -52,24 +52,29 @@
 		</form>
 		<br><br>
 		<h2>Reviews</h2>
-		<form id="add-review-form" method="POST" action="/movies/<%= movie._id %>/reviews">
-			<label>Review:</label>
-			<textarea name="content"></textarea>
-			<label>Rating:</label>
-			<select name="rating">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5" selected>5</option>
-			</select>
-			<input type="submit" value="Add Review">
-		</form>
+
+		<% if (user) { %>
+			<form id="add-review-form" method="POST" action="/movies/<%= movie._id %>/reviews">
+				<label>Review:</label>
+				<textarea name="content"></textarea>
+				<label>Rating:</label>
+				<select name="rating">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5" selected>5</option>
+				</select>
+				<input type="submit" value="Add Review">
+			</form>
+		<% } %>
+
 		
 		<% if (movie.reviews.length) { %>
 			<table>
 			  <thead>
 				<tr>
+				  <th>User</th>
 				  <th>Date</th>
 				  <th>Review</th>
 				  <th>Rating</th>
@@ -78,6 +83,8 @@
 			  <tbody>
 				<% movie.reviews.forEach(function(r) { %>
 				  <tr>
+					<td class="review-user"><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer" ><%= r.userName %></td>
+					<td><%= r.createdAt.toLocaleDateString() %></td>
 					<td><%= r.createdAt.toLocaleDateString() %></td>
 					<td><%= r.content %></td>
 					<td><%= r.rating %></td>

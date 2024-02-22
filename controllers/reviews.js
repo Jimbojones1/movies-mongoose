@@ -7,11 +7,23 @@ module.exports = {
 
 async function create(req, res){
 	// To find the movie!
+	console.log('====================================')
+	console.log(req.user, "< ---- req.user")
+	console.log('====================================')
 	try {
 		// req.params.id comes from the http request from the reviews form on the 
 		// movies show page (.id name comes from the routes/reviews route)
 		const movieDoc = await MovieModel.findById(req.params.id)
 		// movieDoc is the movie from the database
+		
+		// Add the users information the review
+		req.body.user = req.user._id
+		req.body.userName = req.user.name
+		req.body.userAvatar = req.user.avatar
+		// the left side, keys must match 
+		// the review schema
+
+		// the req.user has the keys of the the userSchema
 
 		// Then add the review to the movie's reviews array
 		movieDoc.reviews.push(req.body); // add the contents of the review form (req.body),

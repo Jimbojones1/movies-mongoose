@@ -20,7 +20,14 @@ const reviewSchema = new Schema({
     min: 1,
     max: 5,
     default: 5
-  }
+  },
+  // One to many relationship on the belongs to side
+  user: {
+    type: Schema.Types.ObjectId, // this is from mongoose
+    ref: 'User' // this references this line mongoose.model('User', userSchema);
+  },
+  userName: String,
+  userAvatar: String
 }, {
   timestamps: true
 })
