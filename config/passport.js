@@ -52,12 +52,18 @@ passport.use(
 // this function is called after the verify callback above, 2nd function called after the user logs
 // in, and its job is to take the userDocument (user) and add the id of the user to the session cookie
 
-passport.serializeUser(function(user, cb){
-
+passport.serializeUser(function(user, cb){ // user is the userDoc from the function above
+  cb(null, user._id)
 });
 
 // on every http request when the user is logged in, we need to open the cookie, get the user mongodb._id
 // add attach the users document to req.user, so our controller functions know who is making the http request
 passport.deserializeUser(async function(userId, cb){
-	
+	try {
+    const userDoc = await UserModel.findById(userId)
+    cb(null, userDoc); // this line attaches the userDoc to req.user
+    // req.user = userDoc
+  } catch(err){
+    cb(err)
+  }
 })

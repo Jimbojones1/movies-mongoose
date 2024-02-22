@@ -17,6 +17,7 @@ const app = express();
 // connection between our server (express) and
 // mongodb (Database) server on mongodb atlas
 require('./config/database')
+require('./config/passport')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
