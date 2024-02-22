@@ -35,6 +35,7 @@ const movieSchema = new Schema({
   releaseYear: Number,
   mpaaRating: String,
   nowShowing: Boolean,
+
   // Many to Many Relationship
   // Move has many performers, Performers has many Movies
   // using referencing!

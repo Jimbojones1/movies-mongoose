@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session')
+const passport = require('passport');
 
 const indexRouter = require('./routes/index');
 const movieRouter = require('./routes/movies');
@@ -25,6 +27,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+// ALWAYS SETUP PASSPORT AFTER YOUR SESSION, because PASSPORT USES The cookie you make with the session
+app.use(passport.initialize());
+app.use(passport.session());
+
+// and before the controllers ^^^^^^^ because the controllers want access to req.user! Passport defines req.user for us!
+
+// This piece of middleware we'll inject in the req.user, we'll call it user
+// into every ejs template when we respond to the client
+// this must occurr before our controller functions and after passport
+app.use(function(req, res, next){
+  res.locals.user = req.user; // req.user we get from passport and its the logged in user
+  // if req.user is undefined, no one is logged, if it is defined, its the users mongoose document
+  // res.locals you can attach variable names for all ejs files
+  // so here .user is the variable name
+  next(); // pass the request and res to the next piece of middleware
+})
+
+
 
 app.use('/', indexRouter);
 app.use('/movies', movieRouter);

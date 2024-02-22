@@ -153,3 +153,13 @@ table td {
   border-radius: 50%;
   height: 40px;
 }
+
+ul {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+	
+li {
+  font-weight: bold;
+}
