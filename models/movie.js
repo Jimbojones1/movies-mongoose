@@ -54,3 +54,19 @@ const movieSchema = new Schema({
 // Compile the schema into a model and export it
 // Movie, creates a movies collection in our movies database
 module.exports = mongoose.model('Movie', movieSchema);
+
+
+
+
+
+// const ticketSchema = new Schema({
+//   seat: String, 
+//   price: Number,
+//   // One to many relationship
+//   // on the belongs to side
+//   // ticket belongs to this flight
+//   flight: { 
+//     type: Schema.Types.ObjectId, // this is from mongoose
+//     ref: 'Flight'
+//    }
+// })
