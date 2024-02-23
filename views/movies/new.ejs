@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-
-<body>
-	<nav>
-		<img src="/images/camera.svg">
-		<a href="/performers/new">ADD PERFORMER</a>
-		<a href="/movies/new">ADD MOVIE</a>
-		<a href="/movies">ALL MOVIES</a>
-	</nav>
-	<main>
+<%- include('../partials/header') %>
 		<h2>Enter a New Movie</h2>
 		<form action="/movies" method="POST">
 			<label>Title:
@@ -38,7 +21,4 @@
 			</label><br>
 			<button type="submit">Add Movie</button>
 		</form>
-	</main>
-</body>
-
-</html>
+<%- include('../partials/footer') %>
