@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session')
 const passport = require('passport');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const movieRouter = require('./routes/movies');
@@ -23,6 +24,9 @@ require('./config/passport')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// We need methodOverride for the server to handle requests that want to be put 
+// or delete requests
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
